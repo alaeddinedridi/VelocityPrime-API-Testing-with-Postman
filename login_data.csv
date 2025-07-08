@@ -1,0 +1,8 @@
+scenario,email,password,expected_status,expect_error,expected_message
+Valid login,mrala@gmail.com,Mrala@1234,200,false,
+Missing email,,Mrala@1234,400,true,Email or password missing
+Missing password,mrala@gmail.com,,400,true,Email or password missing
+Invalid email format,invalidemail,Mrala@1234,422,true,Invalid email format
+Incorrect password,mrala@gmail.com,WrongPass999,401,true,email or password is incorrect
+Weak password,mrala@gmail.com,weakpass,403,true,Weak password
+Unregistered user,unknown@example.com,SomePass123,404,true,Account doesn't exist

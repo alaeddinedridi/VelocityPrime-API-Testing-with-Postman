@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "89c072ac-e8b7-4358-8821-e10bac749184",
+		"name": "Velocity prime - Auth API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3824659"
+	},
+	"item": [
+		{
+			"name": "Auth API Tests",
+			"item": [
+				{
+					"name": "User registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"🧪 Running scenario:\", data.scenario);",
+									"",
+									"/*pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});*/",
+									"",
+									"pm.test(\"Response time is under 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Weak password rejected\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.include(\"Weak\");",
+									"});",
+									"",
+									"pm.test(\"User successfully registered\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"fullname\");",
+									"    pm.expect(jsonData).to.have.property(\"email\");",
+									"    pm.expect(jsonData).to.have.property(\"password\");",
+									"    pm.expect(jsonData).to.have.property(\"token\");",
+									"});",
+									"",
+									"pm.test(\"Duplicate email not allowed\", function () {",
+									"    pm.response.to.have.status(409);",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.include(\"User already registered.\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\":\"{{fullname}}\",\n    \"email\":\"{{email}}\",\n    \"password\":\"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(`🧪 Running Scenario: ${data.scenario}`);",
+									"",
+									"const expectedStatus = parseInt(data.expected_status);",
+									"const expectError = String(data.expect_error).toLowerCase().trim() === \"true\";",
+									"const expectedMessage = data.expected_message?.toLowerCase();",
+									"",
+									"pm.test(`[${data.scenario}] → Status Code = ${expectedStatus}`, () => {",
+									"    pm.response.to.have.status(expectedStatus);",
+									"});",
+									"",
+									"const json = pm.response.json();",
+									"console.log(`[${data.scenario}] → ${expectError}`)",
+									"if (expectError) {",
+									"    pm.test(`[${data.scenario}] → Should contain error message`, () => {",
+									"        pm.expect(json.message?.toLowerCase()).to.include(expectedMessage);",
+									"    });",
+									"} else {",
+									"    pm.test(`[${data.scenario}] → Should return token`, () => {",
+									"        pm.expect(json).to.have.property(\"token\");",
+									"        pm.expect(json).to.have.property(\"user\");",
+									"        pm.expect(json.user).to.have.property(\"_id\");",
+									"        pm.expect(json.user).to.have.property(\"role\");",
+									"        pm.expect(json.user).to.have.property(\"fullname\");",
+									"        pm.expect(json.user).to.have.property(\"email\", data.email);",
+									"    });",
+									"",
+									"    // Save token for later requests (optional)",
+									"    pm.environment.set(\"auth_token\", json.token);",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

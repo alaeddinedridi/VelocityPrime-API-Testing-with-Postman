@@ -1,0 +1,5 @@
+scenario,fullname,email,password
+user already exists with strong password,firstexample,apiauto2@gmail.com,Test@12345678
+new user with strong password,new example,testexp5@gmail.com,Test@12345678
+new user with weak password,weakpass,weakpass5@gmail.com,1234
+
