@@ -1,5 +1,10 @@
-scenario,fullname,email,password
-user already exists with strong password,firstexample,apiauto2@gmail.com,Test@12345678
-new user with strong password,new example,testexp5@gmail.com,Test@12345678
-new user with weak password,weakpass,weakpass5@gmail.com,1234
-
+scenario,fullname,email,password,expected_status,expect_error,expected_message
+user already exists,firstexample,apiauto2@gmail.com,Test@12345678,409,true,User already registered
+new user with strong password,new example,testexp10@gmail.com,Test@12345678,200,false,
+new user with weak password,weakpass,weakpass10@gmail.com,1234,400,true,Weak password
+Missing email,mr alaDridi,,Mrala@1234,422,true,Invalid email format
+Missing password,mr alaDridi,mrala99@gmail.com,,400,true,Weak password
+Invalid email format,mr alaDridi,invalidemail,Mrala@1234,422,true,Invalid email format
+Missing fullname,,anemail@gmail.com,Mrala@1234,422,true,Fullname should not be empty
+Short fullname,ala dr,anemail2@gmail.com,Mrala@1234,422,true,Fullname is very short
+empty user,,,,422,true,No user informations provided
