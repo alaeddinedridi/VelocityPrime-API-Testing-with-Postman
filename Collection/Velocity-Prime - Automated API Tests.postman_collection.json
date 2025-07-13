@@ -159,7 +159,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Check response status\", () => {",
-									"    pm.response.to.have.status(201);",
+									"    pm.response.to.have.status(200);",
 									"});",
 									"",
 									"const json = pm.response.json();",
@@ -338,6 +338,322 @@
 							"path": [
 								"product",
 								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", () => {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const products = pm.response.json();",
+									"",
+									"pm.test(\"Response should be an array\", () => {",
+									"    pm.expect(products).to.be.an(\"array\");",
+									"});",
+									"",
+									"pm.test(\"At least one product exists\", () => {",
+									"    pm.expect(products.length).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"Each product has required fields\", () => {",
+									"    products.forEach(product => {",
+									"        pm.expect(product).to.have.property(\"name\");",
+									"        pm.expect(product).to.have.property(\"price\");",
+									"        pm.expect(product).to.have.property(\"_id\");",
+									"        pm.expect(product).to.have.property(\"slug\");",
+									"        pm.expect(product).to.have.property(\"category\");",
+									"        pm.expect(product).to.have.property(\"images\");",
+									"        pm.expect(product).to.have.property(\"brand\");",
+									"        pm.expect(product).to.have.property(\"countInStock\");",
+									"        pm.expect(product).to.have.property(\"description\");",
+									"    });",
+									"});",
+									"",
+									"if (products.length > 0) {",
+									"    pm.environment.set(\"first_product_id\", products[0]._id);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/products/read",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"products",
+								"read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", () => {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const product = pm.response.json();",
+									"",
+									"pm.test(\"Product has required fields\", () => {",
+									"    pm.expect(product).to.have.property(\"name\");",
+									"    pm.expect(product).to.have.property(\"price\");",
+									"    pm.expect(product).to.have.property(\"_id\");",
+									"    pm.expect(product).to.have.property(\"slug\");",
+									"    pm.expect(product).to.have.property(\"category\");",
+									"    pm.expect(product).to.have.property(\"images\");",
+									"    pm.expect(product).to.have.property(\"brand\");",
+									"    pm.expect(product).to.have.property(\"countInStock\");",
+									"    pm.expect(product).to.have.property(\"description\");",
+									"});",
+									"",
+									"pm.test(\"Product ID matches requested\", () => {",
+									"    pm.expect(product._id).to.eql(pm.environment.get(\"first_product_id\"));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/product/{{first_product_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"product",
+								"{{first_product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get products by category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", () => {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const products = pm.response.json();",
+									"",
+									"pm.test(\"Response should be an array\", () => {",
+									"    pm.expect(products).to.be.an(\"array\");",
+									"});",
+									"",
+									"pm.test(\"At least one product exists\", () => {",
+									"    pm.expect(products.length).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"Each product has required fields\", () => {",
+									"    products.forEach(product => {",
+									"        pm.expect(product).to.have.property(\"name\");",
+									"        pm.expect(product).to.have.property(\"price\");",
+									"        pm.expect(product).to.have.property(\"_id\");",
+									"        pm.expect(product).to.have.property(\"slug\");",
+									"        pm.expect(product).to.have.property(\"category\");",
+									"        pm.expect(product).to.have.property(\"images\");",
+									"        pm.expect(product).to.have.property(\"brand\");",
+									"        pm.expect(product).to.have.property(\"countInStock\");",
+									"        pm.expect(product).to.have.property(\"description\");",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Each product has expected category\", () => {",
+									"    products.forEach(product => {",
+									"        pm.expect(product.category).to.eql(data.category);",
+									"    })",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/products/readbycategory/{{category}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"products",
+								"readbycategory",
+								"{{category}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify if product was successfully deleted\", () => {",
+									"    if (pm.response.code === 200) {",
+									"        const json = pm.response.json();",
+									"        pm.expect(json).to.have.property(\"message\");",
+									"        pm.expect(json.message.toLowerCase()).to.include(\"found and removed the product\");",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/product/delete/{{first_product_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"product",
+								"delete",
+								"{{first_product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return available products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", () => {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const products = pm.response.json();",
+									"",
+									"pm.test(\"Response should be an array\", () => {",
+									"    pm.expect(products).to.be.an(\"array\");",
+									"});",
+									"",
+									"pm.test(\"At least one product exists\", () => {",
+									"    pm.expect(products.length).to.be.above(0);",
+									"});",
+									"",
+									"pm.test(\"Each product has required fields\", () => {",
+									"    products.forEach(product => {",
+									"        pm.expect(product).to.have.property(\"name\");",
+									"        pm.expect(product).to.have.property(\"price\");",
+									"        pm.expect(product).to.have.property(\"_id\");",
+									"        pm.expect(product).to.have.property(\"slug\");",
+									"        pm.expect(product).to.have.property(\"category\");",
+									"        pm.expect(product).to.have.property(\"images\");",
+									"        pm.expect(product).to.have.property(\"brand\");",
+									"        pm.expect(product).to.have.property(\"countInStock\");",
+									"        pm.expect(product).to.have.property(\"description\");",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Each product is available in stock\", () => {",
+									"    products.forEach(product => {",
+									"        pm.expect(product.countInStock).to.be.greaterThan(0);",
+									"    })",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/products/instock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"products",
+								"instock"
 							]
 						}
 					},

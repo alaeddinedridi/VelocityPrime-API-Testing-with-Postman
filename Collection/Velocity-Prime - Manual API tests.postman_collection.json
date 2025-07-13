@@ -145,6 +145,155 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Read products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/products/read",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"products",
+								"read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", () => {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const product = pm.response.json();",
+									"",
+									"pm.test(\"Product has required fields\", () => {",
+									"    pm.expect(product).to.have.property(\"name\");",
+									"    pm.expect(product).to.have.property(\"price\");",
+									"    pm.expect(product).to.have.property(\"_id\");",
+									"    pm.expect(product).to.have.property(\"slug\");",
+									"    pm.expect(product).to.have.property(\"category\");",
+									"    pm.expect(product).to.have.property(\"images\");",
+									"    pm.expect(product).to.have.property(\"brand\");",
+									"    pm.expect(product).to.have.property(\"countInStock\");",
+									"    pm.expect(product).to.have.property(\"description\");",
+									"});",
+									"",
+									"pm.test(\"Product ID matches requested\", () => {",
+									"    pm.expect(product._id).to.eql(pm.environment.get(\"first_product_id\"));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/product/6766d0d1dfa96173e065ac59",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"product",
+								"6766d0d1dfa96173e065ac59"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get products by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/products/readbycategory/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"products",
+								"readbycategory",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYzkzNTc2ZGNmNDhhMDEzMDAzZGQiLCJpYXQiOjE3NTIyMjIwMzgsImV4cCI6MTc1MjI0MDAzOH0.1p_zdP_Twlh8Sp-_a9vh7FCH1ZBBE_lqL2Yi5R_67oI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/product/delete/6766d0d1dfa96173e065ac59",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"product",
+								"delete",
+								"6766d0d1dfa96173e065ac59"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return available products",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		}
