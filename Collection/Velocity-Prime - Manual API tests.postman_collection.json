@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "798ed414-ae24-42f8-ae77-778ddba5cf76",
+		"name": "Velocity-Prime - Manual API tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3824659"
+	},
+	"item": [
+		{
+			"name": "Auth API Tests",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\":\"mr ala\",\n    \"email\":\"mrala@gmail.com\",\n    \"password\":\"Mrala@1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"admin@velocity-prime.com\",\n    \"password\":\"Admin@1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product API Tests",
+			"item": [
+				{
+					"name": "Create product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYzkzNTc2ZGNmNDhhMDEzMDAzZGQiLCJpYXQiOjE3NTIyMjIwMzgsImV4cCI6MTc1MjI0MDAzOH0.1p_zdP_Twlh8Sp-_a9vh7FCH1ZBBE_lqL2Yi5R_67oI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/3.jpeg",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/2.jpeg",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/1.jpg"
+									]
+								},
+								{
+									"key": "name",
+									"value": "tshirt-test",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "men",
+									"type": "text"
+								},
+								{
+									"key": "brand",
+									"value": "Velocity Prime",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "89.99",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "an item for test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/product/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"product",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "89c072ac-e8b7-4358-8821-e10bac749184",
+		"name": "Velocity-Prime - Automated API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3824659"
+	},
+	"item": [
+		{
+			"name": "Auth API Tests",
+			"item": [
+				{
+					"name": "User registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(`🧪 Running Scenario: ${data.scenario}`);",
+									"",
+									"const expectedStatus = parseInt(data.expected_status);",
+									"const expectError = String(data.expect_error).toLowerCase().trim() === \"true\";",
+									"const expectedMessage = data.expected_message?.toLowerCase();",
+									"",
+									"",
+									"pm.test(`[${data.scenario}] → Status Code = ${expectedStatus}`, () => {",
+									"    pm.response.to.have.status(expectedStatus);",
+									"});",
+									"",
+									"pm.test(\"Response time is under 1s\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"const json = pm.response.json();",
+									"console.log(`[${data.scenario}] → ${expectError}`)",
+									"if (expectError) {",
+									"    pm.test(`[${data.scenario}] → Should contain error message`, () => {",
+									"        pm.expect(json.message?.toLowerCase()).to.include(expectedMessage);",
+									"    });",
+									"} else {",
+									"    pm.test(`[${data.scenario}] → Should return user data`, () => {",
+									"        const jsonData = pm.response.json();",
+									"        pm.expect(jsonData).to.have.property(\"fullname\");",
+									"        pm.expect(jsonData).to.have.property(\"email\");",
+									"        pm.expect(jsonData).to.have.property(\"password\");",
+									"        pm.expect(jsonData).to.have.property(\"token\");",
+									"    });",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\":\"{{fullname}}\",\n    \"email\":\"{{email}}\",\n    \"password\":\"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(`🧪 Running Scenario: ${data.scenario}`);",
+									"",
+									"const expectedStatus = parseInt(data.expected_status);",
+									"const expectError = String(data.expect_error).toLowerCase().trim() === \"true\";",
+									"const expectedMessage = data.expected_message?.toLowerCase();",
+									"",
+									"pm.test(`[${data.scenario}] → Status Code = ${expectedStatus}`, () => {",
+									"    pm.response.to.have.status(expectedStatus);",
+									"});",
+									"",
+									"const json = pm.response.json();",
+									"console.log(`[${data.scenario}] → ${expectError}`)",
+									"if (expectError) {",
+									"    pm.test(`[${data.scenario}] → Should contain error message`, () => {",
+									"        pm.expect(json.message?.toLowerCase()).to.include(expectedMessage);",
+									"    });",
+									"} else {",
+									"    pm.test(`[${data.scenario}] → Should return token`, () => {",
+									"        pm.expect(json).to.have.property(\"token\");",
+									"        pm.expect(json).to.have.property(\"user\");",
+									"        pm.expect(json.user).to.have.property(\"_id\");",
+									"        pm.expect(json.user).to.have.property(\"role\");",
+									"        pm.expect(json.user).to.have.property(\"fullname\");",
+									"        pm.expect(json.user).to.have.property(\"email\", data.email);",
+									"    });",
+									"",
+									"    // Save token for later requests (optional)",
+									"    pm.environment.set(\"auth_token\", json.token);",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "admin login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check response status\", () => {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"const json = pm.response.json();",
+									"",
+									"pm.test(\"Should return token\", () => {",
+									"    pm.expect(json).to.have.property(\"token\");",
+									"});",
+									"",
+									"// Save token for later requests (optional)",
+									"pm.environment.set(\"auth_token\", json.token);",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin2@velocity-prime.com\",\n  \"password\": \"Admin@1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product API Tests",
+			"item": [
+				{
+					"name": "Create product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(`🧪 Running Scenario: ${data.scenario}`);",
+									"",
+									"const expectedStatus = parseInt(data.expected_status);",
+									"const expectError = String(data.expect_error).toLowerCase().trim() === \"true\";",
+									"const expectedMessage = data.expected_message?.toLowerCase();",
+									"",
+									"pm.test(`[${data.scenario}] → Status Code = ${expectedStatus}`, () => {",
+									"    pm.response.to.have.status(expectedStatus);",
+									"});",
+									"",
+									"const json = pm.response.json();",
+									"console.log(`[${data.scenario}] → ${expectError}`)",
+									"if (expectError) {",
+									"    pm.test(`[${data.scenario}] → Should contain error message`, () => {",
+									"        pm.expect(json.message?.toLowerCase()).to.include(expectedMessage);",
+									"    });",
+									"} else {",
+									"    pm.test(`[${data.scenario}] → Should return product data`, () => {",
+									"        pm.expect(json).to.have.property(\"id\");",
+									"        pm.expect(json).to.have.property(\"name\");",
+									"        pm.expect(json).to.have.property(\"slug\");",
+									"        pm.expect(json).to.have.property(\"category\");",
+									"        pm.expect(json).to.have.property(\"images\");",
+									"        pm.expect(json).to.have.property(\"price\");",
+									"        pm.expect(json).to.have.property(\"brand\");",
+									"        pm.expect(json).to.have.property(\"countInStock\");",
+									"        pm.expect(json).to.have.property(\"description\");",
+									"    });",
+									"}",
+									"",
+									"",
+									"pm.environment.set(\"last_product_id\", json.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const imageDir = pm.environment.get(\"image_dir\") || \"/.images\";",
+									"const imageList = data.pictures.map(name => `${imageDir}/${name}`);",
+									"pm.variables.set(\"current_images\", JSON.stringify(imageList));",
+									"",
+									"console.log(\"Images to upload: \", imageList);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/3.jpeg",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/2.jpeg",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/1.jpg"
+									],
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "{{category}}",
+									"type": "text"
+								},
+								{
+									"key": "brand",
+									"value": "{{brand}}",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "{{price}}",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "{{stock}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "{{description}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/product/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"product",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
