@@ -1,0 +1,25 @@
+[
+  {
+    "scenario": "Update product with pictures",
+    "name":"tshirt test - updated 666",
+    "category":"men",
+    "brand":"Velocity Prime - updated 666",
+    "price":"30.00",
+    "stock":10,
+    "description":"an item for test - - updated 666",
+    "pictures":["1.jpg","2.jpeg","3.jpeg"],
+    "expected_status": 200,
+    "expect_error": false
+  },
+  {
+    "scenario": "Update product with no pictures",
+    "name":"tshirt test - updated 999",
+    "category":"men",
+    "brand":"Velocity Prime - updated 999",
+    "price":"79.49",
+    "stock":19,
+    "description":"an item for test - updated 999",
+    "expected_status": 200,
+    "expect_error": false
+  }
+]

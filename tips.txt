@@ -6,6 +6,4 @@ newman run Velocity-Prime.postman_collection.json --iteration-data ../Data/creat
 
 
 
-> Firewall.setPortForwarding(
-setPortForwarding(id:string, origin:string <mandatory>, sourceInterface:string <mandatory>, externalPort:string, internalPort:string <mandatory>, destinationIPAddress:string <mandatory>, sourcePrefix:string, protocol:string <mandatory>, enable:bool, persistent:bool, description:string, destinationMACAddress:string, leaseDuration:int32, upnpv1Compat:bool):string
 

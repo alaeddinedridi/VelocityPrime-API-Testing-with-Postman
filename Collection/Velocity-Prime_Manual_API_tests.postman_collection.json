@@ -294,6 +294,108 @@
 						"header": []
 					},
 					"response": []
+				},
+				{
+					"name": "Products sorted by price",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/products/sortbyprice/:option",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"products",
+								"sortbyprice",
+								":option"
+							],
+							"variable": [
+								{
+									"key": "option",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYzkzNTc2ZGNmNDhhMDEzMDAzZGQiLCJpYXQiOjE3NTI1NzE5MTEsImV4cCI6MTc1MjU4OTkxMX0.qzkH9S0x1HLGt9F9guK-YLHU84CurBdUuDNEhAnZHKo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/3.jpeg",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/2.jpeg",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/1.jpg"
+									]
+								},
+								{
+									"key": "name",
+									"value": "tshirt-test-updated220ttttttttt",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "men",
+									"type": "text"
+								},
+								{
+									"key": "brand",
+									"value": "Velocity Prime",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1000",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "18",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "an item for test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/product/update/6870d7063a8f55d434ce7ed1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"product",
+								"update",
+								"6870d7063a8f55d434ce7ed1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
