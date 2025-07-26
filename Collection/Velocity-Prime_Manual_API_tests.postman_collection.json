@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "798ed414-ae24-42f8-ae77-778ddba5cf76",
-		"name": "Velocity-Prime - Manual API tests",
+		"name": "Velocity-Prime_Manual_API_tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "3824659"
 	},
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"fullname\":\"mr ala\",\n    \"email\":\"mrala@gmail.com\",\n    \"password\":\"Mrala@1234\"\n}",
+							"raw": "{\n    \"fullname\":\"mr alaD\",\n    \"email\":\"mrala@gmail.com\",\n    \"password\":\"Mrala@1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"admin@velocity-prime.com\",\n    \"password\":\"Admin@1234\"\n}",
+							"raw": "{\n    \"email\":\"mrala@gmail.com\",\n    \"password\":\"Mrala@1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,7 +80,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYzkzNTc2ZGNmNDhhMDEzMDAzZGQiLCJpYXQiOjE3NTIyMjIwMzgsImV4cCI6MTc1MjI0MDAzOH0.1p_zdP_Twlh8Sp-_a9vh7FCH1ZBBE_lqL2Yi5R_67oI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYzkzNTc2ZGNmNDhhMDEzMDAzZGQiLCJpYXQiOjE3NTM1NDU5MzYsImV4cCI6MTc1MzU2MzkzNn0.0Lo0bWMOUU17rWFnylp9Z7vUXTZhFDwsSGoZkIbTvNE",
 									"type": "string"
 								}
 							]
@@ -94,14 +94,14 @@
 									"key": "files",
 									"type": "file",
 									"src": [
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/3.jpeg",
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/2.jpeg",
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/1.jpg"
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/6.png",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/5.png",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/4.jpg"
 									]
 								},
 								{
 									"key": "name",
-									"value": "tshirt-test",
+									"value": "tshirt-testRRRR",
 									"type": "text"
 								},
 								{
@@ -111,22 +111,22 @@
 								},
 								{
 									"key": "brand",
-									"value": "Velocity Prime",
+									"value": "Velocity Primey",
 									"type": "text"
 								},
 								{
 									"key": "price",
-									"value": "89.99",
+									"value": "99.99",
 									"type": "text"
 								},
 								{
 									"key": "stock",
-									"value": "10",
+									"value": "15",
 									"type": "text"
 								},
 								{
 									"key": "description",
-									"value": "an item for test",
+									"value": "an item for testaa",
 									"type": "text"
 								}
 							]
@@ -241,7 +241,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/products/readbycategory/",
+							"raw": "http://localhost:3001/products/readbycategory/men",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -250,7 +250,7 @@
 							"path": [
 								"products",
 								"readbycategory",
-								""
+								"men"
 							]
 						}
 					},
@@ -291,7 +291,19 @@
 					"name": "Return available products",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/products/instock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"products",
+								"instock"
+							]
+						}
 					},
 					"response": []
 				},
@@ -301,7 +313,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/products/sortbyprice/:option",
+							"raw": "http://localhost:3001/products/sortbyprice/low",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -310,13 +322,7 @@
 							"path": [
 								"products",
 								"sortbyprice",
-								":option"
-							],
-							"variable": [
-								{
-									"key": "option",
-									"value": ""
-								}
+								"low"
 							]
 						}
 					},
@@ -330,7 +336,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYzkzNTc2ZGNmNDhhMDEzMDAzZGQiLCJpYXQiOjE3NTI1NzE5MTEsImV4cCI6MTc1MjU4OTkxMX0.qzkH9S0x1HLGt9F9guK-YLHU84CurBdUuDNEhAnZHKo",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYzkzNTc2ZGNmNDhhMDEzMDAzZGQiLCJpYXQiOjE3NTM1NDU5MzYsImV4cCI6MTc1MzU2MzkzNn0.0Lo0bWMOUU17rWFnylp9Z7vUXTZhFDwsSGoZkIbTvNE",
 									"type": "string"
 								}
 							]
@@ -344,14 +350,16 @@
 									"key": "files",
 									"type": "file",
 									"src": [
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/3.jpeg",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/6.png",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/5.png",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/4.jpg",
 										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/2.jpeg",
 										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/1.jpg"
 									]
 								},
 								{
 									"key": "name",
-									"value": "tshirt-test-updated220ttttttttt",
+									"value": "tshirt-test-updated220ttttttttt00032op",
 									"type": "text"
 								},
 								{
@@ -366,23 +374,23 @@
 								},
 								{
 									"key": "price",
-									"value": "1000",
+									"value": "2000",
 									"type": "text"
 								},
 								{
 									"key": "stock",
-									"value": "18",
+									"value": "30",
 									"type": "text"
 								},
 								{
 									"key": "description",
-									"value": "an item for test",
+									"value": "an item for test 03",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3001/product/update/6870d7063a8f55d434ce7ed1",
+							"raw": "http://localhost:3001/product/update/687fa94efd555197c1f37727",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -391,7 +399,132 @@
 							"path": [
 								"product",
 								"update",
-								"6870d7063a8f55d434ce7ed1"
+								"687fa94efd555197c1f37727"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all products",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/products/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"products",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Products sorted by date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/products/sortbydate/latest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"products",
+								"sortbydate",
+								"latest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order API Tests",
+			"item": [
+				{
+					"name": "Place order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"shippingAddress\":{\n        \"fullname\":\"\",\n        \"phoneNumber\":\"\",\n        \"address\":\"\",\n        \"city\":\"\",\n        \"pcode\":\"\"\n    },\n    \"orderItems\":[\n        {\"name\":\"\",\"images\":[],\"price\":\"\"}\n    ],\n    \"price\":\"\",\n    \"shippingPrice\":\"\",\n    \"tax\":\"\",\n    \"total\":\"\",\n    \"order_status\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/order/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"order",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update order",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Read orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODcwYzkzNTc2ZGNmNDhhMDEzMDAzZGQiLCJpYXQiOjE3NTI3NDE2ODcsImV4cCI6MTc1Mjc1OTY4N30.JsxNzRiktmKYeWHi2ikXBFuPUHreb8kuZ1rKJc6bzHU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/orders/read",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"orders",
+								"read"
 							]
 						}
 					},

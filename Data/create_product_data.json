@@ -7,7 +7,7 @@
     "price":"19.99",
     "stock":8,
     "description":"an item for test4",
-    "pictures":["4.jpg","5.png","6.png"],
+    "files":["4.jpg","5.png","6.png"],
     "expected_status": 201,
     "expect_error": false
   },
@@ -19,7 +19,7 @@
     "price":"50.49",
     "stock":16,
     "description":"an item for test9",
-    "pictures":["1.jpg","2.png","3.png"],
+    "files":["1.jpg","2.png","3.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Name field should not be empty"
@@ -32,7 +32,7 @@
     "price":"50.49",
     "stock":16,
     "description":"an item for test9",
-    "pictures":["1.jpg","2.png","3.png"],
+    "files":["1.jpg","2.png","3.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Category field should not be empty"
@@ -45,7 +45,7 @@
     "price":"50.49",
     "stock":16,
     "description":"an item for test9",
-    "pictures":["1.jpg","2.png","3.png"],
+    "files":["1.jpg","2.png","3.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Brand field should not be empty"
@@ -58,7 +58,7 @@
     "price":"",
     "stock":16,
     "description":"an item for test9",
-    "pictures":["1.jpg","2.png","3.png"],
+    "files":["1.jpg","2.png","3.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Price field should not be empty"
@@ -71,7 +71,7 @@
     "price":"5",
     "stock":-1,
     "description":"an item for test9",
-    "pictures":["1.jpg","2.png","3.png"],
+    "files":["1.jpg","2.png","3.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Stock field must not be a negative value"
@@ -84,7 +84,7 @@
     "price":"5",
     "stock":0,
     "description":"",
-    "pictures":["1.jpg","2.png","3.png"],
+    "files":["1.jpg","2.png","3.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Description field should not be empty"
@@ -97,7 +97,7 @@
     "price":"5",
     "stock":101,
     "description":"an item for test9",
-    "pictures":[],
+    "files":[],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "A product must have at least a picture"
@@ -110,7 +110,7 @@
     "price":"19.99",
     "stock":8,
     "description":"an item for test4",
-    "pictures":["4.jpg","5.png","6.png"],
+    "files":["4.jpg","5.png","6.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Invalid product name"
@@ -123,7 +123,7 @@
     "price":"19.99",
     "stock":8,
     "description":"an item for test4",
-    "pictures":["4.jpg","5.png","6.png"],
+    "files":["4.jpg","5.png","6.png"],
     "expected_status": 201,
     "expect_error": false
   },
@@ -135,7 +135,7 @@
     "price":"19.99",
     "stock":8,
     "description":"an item for test4",
-    "pictures":["4.jpg","5.png","6.png"],
+    "files":["4.jpg","5.png","6.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Invalid product category"
@@ -148,7 +148,7 @@
     "price":"19.99",
     "stock":8,
     "description":"an item for test4",
-    "pictures":["4.jpg","5.png","6.png"],
+    "files":["4.jpg","5.png","6.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Invalid product brand"
@@ -161,7 +161,7 @@
     "price":"1-9.99a",
     "stock":8,
     "description":"an item for test4",
-    "pictures":["4.jpg","5.png","6.png"],
+    "files":["4.jpg","5.png","6.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Invalid product price"
@@ -174,7 +174,7 @@
     "price":"19.99",
     "stock":"â5&°",
     "description":"an item for test4",
-    "pictures":["4.jpg","5.png","6.png"],
+    "files":["4.jpg","5.png","6.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Invalid product stock"
@@ -187,9 +187,22 @@
     "price":"19.99",
     "stock":2000,
     "description":"dslg dsfsd<oiioo> gfdg/gsdgir\fsd",
-    "pictures":["4.jpg","5.png","6.png"],
+    "files":["4.jpg","5.png","6.png"],
     "expected_status": 400,
     "expect_error": true,
     "expected_message": "Invalid product description"
+  },
+  {
+    "scenario": "Product with int price format",
+    "name":"Product with int price format",
+    "category":"men",
+    "brand":"Velocity Prime",
+    "price":"5",
+    "stock":16,
+    "description":"an item for test99",
+    "files":["1.jpg","2.png","3.png"],
+    "expected_status": 400,
+    "expect_error": true,
+    "expected_message": "Price field should be in float format"
   }
 ]

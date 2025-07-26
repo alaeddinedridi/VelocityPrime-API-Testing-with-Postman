@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "89c072ac-e8b7-4358-8821-e10bac749184",
-		"name": "Velocity-Prime - Automated API Tests",
+		"name": "Velocity-Prime_Automated_API_Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "3824659"
 	},
@@ -235,15 +235,14 @@
 									"    });",
 									"} else {",
 									"    pm.test(`[${data.scenario}] → Should return product data`, () => {",
-									"        pm.expect(json).to.have.property(\"id\");",
-									"        pm.expect(json).to.have.property(\"name\");",
-									"        pm.expect(json).to.have.property(\"slug\");",
-									"        pm.expect(json).to.have.property(\"category\");",
-									"        pm.expect(json).to.have.property(\"images\");",
-									"        pm.expect(json).to.have.property(\"price\");",
-									"        pm.expect(json).to.have.property(\"brand\");",
-									"        pm.expect(json).to.have.property(\"countInStock\");",
-									"        pm.expect(json).to.have.property(\"description\");",
+									"        pm.expect(json.product).to.have.property(\"name\");",
+									"        pm.expect(json.product).to.have.property(\"slug\");",
+									"        pm.expect(json.product).to.have.property(\"category\");",
+									"        pm.expect(json.product).to.have.property(\"images\");",
+									"        pm.expect(json.product).to.have.property(\"price\");",
+									"        pm.expect(json.product).to.have.property(\"brand\");",
+									"        pm.expect(json.product).to.have.property(\"countInStock\");",
+									"        pm.expect(json.product).to.have.property(\"description\");",
 									"    });",
 									"}",
 									"",
@@ -259,7 +258,7 @@
 							"script": {
 								"exec": [
 									"const imageDir = pm.environment.get(\"image_dir\") || \"/.images\";",
-									"const imageList = data.pictures.map(name => `${imageDir}/${name}`);",
+									"const imageList = data.files.map(name => `${imageDir}/${name}`);",
 									"pm.variables.set(\"current_images\", JSON.stringify(imageList));",
 									"",
 									"console.log(\"Images to upload: \", imageList);",
@@ -290,11 +289,12 @@
 									"key": "files",
 									"type": "file",
 									"src": [
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/6.png",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/5.png",
 										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/3.jpeg",
 										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/2.jpeg",
 										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/1.jpg"
-									],
-									"disabled": true
+									]
 								},
 								{
 									"key": "name",
@@ -653,7 +653,14 @@
 									"pm.test(`Expect products to be sorted by price: ${data.sort}`, function () {",
 									"    ",
 									"    for (let i = 0; i < products.length - 1; i++) {",
-									"        pm.expect(Number(products[i].price)).to.be.at.most(Number(products[i + 1].price));",
+									"        if (data.sort ==\"high\"){",
+									"            pm.expect(Number(products[i].price)).to.be.at.least(Number(products[i + 1].price));",
+									"        }",
+									"",
+									"        if (data.sort == \"low\"){",
+									"            pm.expect(Number(products[i].price)).to.be.at.most(Number(products[i + 1].price));",
+									"        }",
+									"        ",
 									"    }",
 									"});",
 									"",
@@ -778,11 +785,10 @@
 									"key": "files",
 									"type": "file",
 									"src": [
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/3.jpeg",
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/2.jpeg",
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/1.jpg"
-									],
-									"disabled": true
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/5.png",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/4.jpg",
+										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/3.jpeg"
+									]
 								},
 								{
 									"key": "name",
@@ -884,73 +890,17 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "selectedtests",
-			"item": [
-				{
-					"name": "admin login Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Check response status\", () => {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"const json = pm.response.json();",
-									"",
-									"pm.test(\"Should return token\", () => {",
-									"    pm.expect(json).to.have.property(\"token\");",
-									"});",
-									"",
-									"// Save token for later requests (optional)",
-									"pm.environment.set(\"auth_token\", json.token);",
-									"",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"admin2@velocity-prime.com\",\n  \"password\": \"Admin@1234\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3001/auth/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
 				},
 				{
-					"name": "Read products Copy",
+					"name": "Products sorted by date",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(`🧪 Running Scenario: ${data.sort}`);",
+									"",
+									"",
 									"pm.test(\"Response status code\", () => {",
 									"    pm.response.to.have.status(200);",
 									"});",
@@ -984,10 +934,21 @@
 									"    });",
 									"});",
 									"",
-									"if (products.length > 0) {",
-									"    pm.environment.set(\"first_product_id\", products[0]._id);",
-									"    pm.environment.set(\"second_product_id\", products[1]._id);",
-									"}"
+									"pm.test(`Expect products to be sorted by date: ${data.sort}`, function () {",
+									"    ",
+									"    for (let i = 0; i < products.length - 1; i++) {",
+									"        if (data.sort ==\"newest\"){",
+									"            pm.expect(new Date(products[i].createdAt).getTime()).to.be.lte(new Date(products[i + 1].createdAt).getTime());",
+									"        }",
+									"",
+									"        if (data.sort == \"latest\"){",
+									"            pm.expect(new Date(products[i].createdAt).getTime()).to.be.gte(new Date(products[i + 1].createdAt).getTime());",
+									"        }",
+									"        ",
+									"    }",
+									"});",
+									"",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -998,7 +959,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/products/read",
+							"raw": "http://localhost:3001/products/sortbydate/{{sort}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1006,80 +967,130 @@
 							"port": "3001",
 							"path": [
 								"products",
-								"read"
+								"sortbydate",
+								"{{sort}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order API Tests",
+			"item": [
+				{
+					"name": "Place order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/order/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"order",
+								"create"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update product Copy",
+					"name": "Update order",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Read orders",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"console.log(`🧪 Running Scenario: ${data.scenario}`);",
-									"",
-									"const expectedStatus = parseInt(data.expected_status);",
-									"const expectError = String(data.expect_error).toLowerCase().trim() === \"true\";",
-									"const expectedMessage = data.expected_message?.toLowerCase();",
-									"",
-									"pm.test(`[${data.scenario}] → Status Code = ${expectedStatus}`, () => {",
-									"    pm.response.to.have.status(expectedStatus);",
+									"pm.test(\"Response status code\", () => {",
+									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"const product = pm.response.json();",
-									"console.log(`[${data.scenario}] → ${expectError}`)",
-									"if (expectError) {",
-									"    pm.test(`[${data.scenario}] → Should contain error message`, () => {",
-									"        pm.expect(product.message?.toLowerCase()).to.include(expectedMessage);",
-									"    });",
-									"} else {",
-									"    pm.test(`[${data.scenario}] → Should return product data`, () => {",
-									"        pm.expect(product).to.have.property(\"name\");",
-									"        pm.expect(product).to.have.property(\"category\");",
-									"        if (typeof data.pictures !== 'undefined'){",
-									"            pm.expect(product).to.have.property(\"images\");",
+									"pm.test(\"Response is JSON\", () => {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const orders = pm.response.json();",
+									"",
+									"pm.test(\"Response should be an array\", () => {",
+									"    pm.expect(orders).to.be.an(\"array\");",
+									"});",
+									"",
+									"pm.test(\"At least one order exists\", () => {",
+									"    pm.expect(orders.length).to.be.above(0);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each order has required fields\", () => {",
+									"    orders.forEach(order => {",
+									"        pm.expect(order).to.have.property(\"shippingAddress\");",
+									"        pm.expect(order.shippingAddress).to.have.property(\"fullname\");",
+									"        pm.expect(order.shippingAddress).to.have.property(\"phoneNumber\");",
+									"        pm.expect(order.shippingAddress).to.have.property(\"address\");",
+									"        pm.expect(order.shippingAddress).to.have.property(\"city\");",
+									"        pm.expect(order.shippingAddress).to.have.property(\"pcode\");",
+									"        pm.expect(order).to.have.property(\"_id\");",
+									"        pm.expect(order).to.have.property(\"orderItems\");",
+									"        if (order.orderItems.length > 0){",
+									"            order.orderItems.map(orderItem => {",
+									"                pm.expect(orderItem).to.have.property(\"name\");",
+									"                pm.expect(orderItem).to.have.property(\"images\");",
+									"                pm.expect(orderItem).to.have.property(\"price\");",
+									"                pm.expect(orderItem).to.have.property(\"_id\");",
+									"            })",
 									"        }",
-									"        pm.expect(product).to.have.property(\"price\");",
-									"        pm.expect(product).to.have.property(\"brand\");",
-									"        pm.expect(product).to.have.property(\"stock\");",
-									"        pm.expect(product).to.have.property(\"description\");",
+									"        pm.expect(order).to.have.property(\"price\");",
+									"        pm.expect(order).to.have.property(\"shippingPrice\");",
+									"        pm.expect(order).to.have.property(\"tax\");",
+									"        pm.expect(order).to.have.property(\"total\");",
+									"        pm.expect(order).to.have.property(\"order_status\");",
 									"    });",
+									"});",
 									"",
-									"    pm.test(`[${data.scenario}] → Check if data was updated successfully`, () => {",
-									"        pm.expect(product.name).to.eql(data.name);",
-									"        pm.expect(product.category).to.eql(data.category);",
-									"        if (typeof data.pictures !== 'undefined'){",
-									"            pm.expect(product.images).to.eql(data.pictures);",
+									"pm.test('Returned properties have the expected types', ()=>{",
+									"    orders.forEach(order => {",
+									"        pm.expect(typeof order.shippingAddress).to.eql(\"object\");",
+									"        pm.expect(typeof order.shippingAddress.fullname).to.eql(\"string\");",
+									"        pm.expect(typeof order.shippingAddress.phoneNumber).to.eql(\"number\");",
+									"        pm.expect(typeof order.shippingAddress.address).to.eql(\"string\");",
+									"        pm.expect(typeof order.shippingAddress.city).to.eql(\"string\");",
+									"        pm.expect(typeof order.shippingAddress.pcode).to.eql(\"number\");",
+									"        pm.expect(typeof order._id).to.eql(\"number\");",
+									"        pm.expect(Array.isArray(order.orderItems)).to.be.true;",
+									"        if (order.orderItems.length > 0){",
+									"            order.orderItems.map(orderItem => {",
+									"                pm.expect(typeof orderItem.name).to.eql(\"string\");",
+									"                pm.expect(Array.isArray(orderItem.images)).to.be.true;",
+									"                pm.expect(typeof orderItem.price).to.eql(\"number\");",
+									"                pm.expect(typeof orderItem._id).to.eql(\"number\");",
+									"",
+									"            })",
 									"        }",
-									"        pm.expect(Number(product.price)).to.eql(Number(data.price));",
-									"        pm.expect(product.brand).to.eql(data.brand);",
-									"        pm.expect(Number(product.stock)).to.eql(Number(data.stock));",
-									"        pm.expect(product.description).to.eql(data.description);",
-									"    });",
-									"}",
+									"        pm.expect(typeof order.price).to.eql(\"number\");",
+									"        pm.expect(typeof order.shippingPrice).to.eql(\"number\");",
+									"        pm.expect(typeof order.tax).to.eql(\"number\");",
+									"        pm.expect(typeof order.total).to.eql(\"number\");",
+									"        pm.expect(typeof order.order_status).to.eql(\"string\");",
+									"    })",
 									"",
+									"})",
 									"",
-									"pm.environment.set(\"last_product_id\", product.id);"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"const imageDir = pm.environment.get(\"image_dir\") || \"/.images\";",
-									"if (data.pictures){",
-									"    const imageList = data.pictures.map(name => `${imageDir}/${name}`);",
-									"    pm.variables.set(\"current_images\", JSON.stringify(imageList))",
-									"    console.log(\"Images to upload: \", imageList);",
-									"}",
-									"",
-									""
+									"if (orders.length > 0) {",
+									"    pm.environment.set(\"first_order_id\", orders[0]._id);",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1097,64 +1108,18 @@
 								}
 							]
 						},
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "files",
-									"type": "file",
-									"src": [
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/3.jpeg",
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/2.jpeg",
-										"/home/ala/Documents/velocity_prime/Velocityprime Postman automation testing/images/1.jpg"
-									],
-									"disabled": true
-								},
-								{
-									"key": "name",
-									"value": "{{name}}",
-									"type": "text"
-								},
-								{
-									"key": "category",
-									"value": "{{category}}",
-									"type": "text"
-								},
-								{
-									"key": "brand",
-									"value": "{{brand}}",
-									"type": "text"
-								},
-								{
-									"key": "price",
-									"value": "{{price}}",
-									"type": "text"
-								},
-								{
-									"key": "stock",
-									"value": "{{stock}}",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "{{description}}",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
-							"raw": "http://localhost:3001/product/update/{{first_product_id}}",
+							"raw": "http://localhost:3001/orders/read",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3001",
 							"path": [
-								"product",
-								"update",
-								"{{first_product_id}}"
+								"orders",
+								"read"
 							]
 						}
 					},
