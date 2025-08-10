@@ -1,0 +1,134 @@
+[
+{
+  "scenario": "Valid order",
+  "shippingAddress":{
+    "fullname":"fdgd",
+    "phoneNumber":"26210996",
+    "address":"sgdsgsg",
+    "city":"tunis",
+    "pcode":"7050"
+  },
+  "orderItems":[{"name":"a product name here","images":"['ff.jpg','fd.png']","price":"99.50"}],
+  "price":"99.50",
+  "shippingPrice":"1.00",
+  "tax":"6.00",
+  "total":"106.50",
+  "order_status":"pending",
+  "expected_status": 201,
+  "expect_error": false
+},
+{
+  "scenario": "Order missing fullname",
+  "shippingAddress":{
+    "fullname":"",
+    "phoneNumber":"26210996",
+    "address":"sgdsgsg",
+    "city":"tunis",
+    "pcode":"7050"
+  },
+  "orderItems":[{"name":"a product name here","images":"['ff.jpg','fd.png']","price":"99.50"}],
+  "price":"99.50",
+  "shippingPrice":"1.00",
+  "tax":"6.00",
+  "total":"106.50",
+  "order_status":"pending",
+  "expected_status": 400,
+  "expect_error": true,
+  "expected_message": "Fullname field is required"
+},
+{
+  "scenario": "Order missing phone number",
+  "shippingAddress":{
+    "fullname":"xxxxxx",
+    "phoneNumber":"",
+    "address":"sgdsgsg",
+    "city":"tunis",
+    "pcode":"7050"
+  },
+  "orderItems":[{"name":"a product name here","images":"['ff.jpg','fd.png']","price":"99.50"}],
+  "price":"99.50",
+  "shippingPrice":"1.00",
+  "tax":"6.00",
+  "total":"106.50",
+  "order_status":"pending",
+  "expected_status": 400,
+  "expect_error": true,
+  "expected_message": "Phone number field is required"
+},
+{
+  "scenario": "Order missing address",
+  "shippingAddress":{
+    "fullname":"xxxxxx",
+    "phoneNumber":"12345678",
+    "address":"",
+    "city":"tunis",
+    "pcode":"7050"
+  },
+  "orderItems":[{"name":"a product name here","images":"['ff.jpg','fd.png']","price":"99.50"}],
+  "price":"99.50",
+  "shippingPrice":"1.00",
+  "tax":"6.00",
+  "total":"106.50",
+  "order_status":"pending",
+  "expected_status": 400,
+  "expect_error": true,
+  "expected_message": "Address field is required"
+},
+{
+  "scenario": "Order missing city",
+  "shippingAddress":{
+    "fullname":"xxxxxx",
+    "phoneNumber":"12345678",
+    "address":"xxx yyy",
+    "city":"",
+    "pcode":"7050"
+  },
+  "orderItems":[{"name":"a product name here","images":"['ff.jpg','fd.png']","price":"99.50"}],
+  "price":"99.50",
+  "shippingPrice":"1.00",
+  "tax":"6.00",
+  "total":"106.50",
+  "order_status":"pending",
+  "expected_status": 400,
+  "expect_error": true,
+  "expected_message": "City field is required"
+},
+{
+  "scenario": "Order missing postal code",
+  "shippingAddress":{
+    "fullname":"xxxxxx",
+    "phoneNumber":"12345678",
+    "address":"xxx yyy",
+    "city":"zzz",
+    "pcode":""
+  },
+  "orderItems":[{"name":"a product name here","images":"['ff.jpg','fd.png']","price":"99.50"}],
+  "price":"99.50",
+  "shippingPrice":"1.00",
+  "tax":"6.00",
+  "total":"106.50",
+  "order_status":"pending",
+  "expected_status": 400,
+  "expect_error": true,
+  "expected_message": "Postal code field is required"
+},
+{
+  "scenario": "Order with no products",
+  "shippingAddress":{
+    "fullname":"xxxxxx",
+    "phoneNumber":"12345678",
+    "address":"xxx yyy",
+    "city":"zzz",
+    "pcode":"9878"
+  },
+  "orderItems":[],
+  "price":"99.50",
+  "shippingPrice":"1.00",
+  "tax":"6.00",
+  "total":"106.50",
+  "order_status":"pending",
+  "expected_status": 400,
+  "expect_error": true,
+  "expected_message": "You cannot place an order that does not contain products"
+}
+]
